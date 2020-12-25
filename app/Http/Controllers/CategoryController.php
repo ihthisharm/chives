@@ -23,8 +23,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       $categories = Category::all();
-       return view('categories.index')->with('categories', $categories);
+        $categories = Category::all();
+        return view('categories.index')->with('categories', $categories);
     }
 
     /**
@@ -34,7 +34,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-   
     }
 
     /**
@@ -44,34 +43,32 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        
+    {
+
         //validate
-        $this->validate($request, [
-            'image' => 'image|nullable|max:1999'
-            ]);
-            $slug = Str::slug($request->name, '-');
-            //Handle File
-         if ($request->hasFile('image')){
-            //Full Filename
-            $fileNameWithExt = $request->file('image')->getClientOriginalName();
-            //Filename
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        // $this->validate($request, [
+        //     'image' => 'image|nullable|max:1999'
+        // ]);
+
+        $slug = Str::slug($request->name, '-');
+
+        //Handle File
+        if ($request->hasFile('image')) {
             //File Extension
             $extension = $request->file('image')->getClientOriginalExtension();
             //Self Explanatory
-            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            $fileNameToStore = $slug . '.' . $extension;
             //Do save
-            $path = $request->file('image')->storeAs('public/img/categories', $fileNameToStore);
+            $request->file('image')->storeAs('public/img/categories', $fileNameToStore);
         } else {
-            $fileNameToStore = 'https://robohash.org/'.$slug.'.png?bgset=bg1';
+            $fileNameToStore = 'https://robohash.org/' . $slug . '.png?bgset=bg1';
         }
-           
+
         Category::create([
             'name' => $request->name,
             'description' => $request->description,
             'slug' => $slug,
-            'image' => $fileNameToStore
+            'image' => 'storage/img/categories/' . $fileNameToStore
         ]);
 
         return redirect()->back();
