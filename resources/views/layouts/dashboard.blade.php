@@ -67,22 +67,20 @@
     <script src="{{ asset('app-assets/js/argon.js?v=1.2.0') }}"></script>
     <script type="text/javascript">
         function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-    
-                    reader.onload = function(e) {
-            $('#preview').attr('src', e.target.result);
-                    }
-    
-                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
                 }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
             }
-    
-            $("#imgInput").change(function() {
+        }
+
+        $("#imgInput").change(function() {
             readURL(this);
-            });
-    
-        </script>
+        });
+
+    </script>
 </body>
 
 </html>

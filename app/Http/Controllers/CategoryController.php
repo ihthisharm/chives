@@ -46,9 +46,9 @@ class CategoryController extends Controller
     {
 
         //validate
-        // $this->validate($request, [
-        //     'image' => 'image|nullable|max:1999'
-        // ]);
+        $this->validate($request, [
+            'image' => 'image|nullable|max:1999'
+        ]);
 
         $slug = Str::slug($request->name, '-');
 
@@ -68,7 +68,7 @@ class CategoryController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'slug' => $slug,
-            'image' => 'storage/img/categories/' . $fileNameToStore
+            'image' => '/storage/img/categories/' . $fileNameToStore
         ]);
 
         return redirect()->back();
@@ -82,7 +82,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('categories.show')->with('category', $category);
     }
 
     /**
@@ -105,7 +105,35 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        //validate
+        $this->validate($request, [
+            'image' => 'image|nullable|max:1999'
+        ]);
+
+        $slug = Str::slug($request->name, '-');
+
+        //Handle File
+        if ($request->hasFile('image')) {
+            //File Extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+            //Self Explanatory
+            $fileNameToStore = $slug . '.' . $extension;
+            //Do save
+            $request->file('image')->storeAs('public/img/categories', $fileNameToStore);
+        }
+
+        $category->name = $request->name;
+        $category->slug = $slug;
+        $category->description = $request->description;
+
+        if ($request->hasFile('image')) {
+            $category->image = '/storage/img/categories/' . $fileNameToStore;
+        } else {
+            $category->image = $category->image;
+        }
+
+        $category->save();
+        return redirect()->back();
     }
 
     /**
@@ -116,6 +144,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect('/categories');
     }
 }

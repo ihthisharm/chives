@@ -33,7 +33,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <h6 class="text-light text-uppercase ls-1 mb-1">Restaurant Management</h6>
-                                <h5 class="h3 text-primary mb-0"><i class="ni ni-money-coins"></i> All Categories</h5>
+                                <h5 class="h3 text-primary mb-0"><i class="ni ni-archive-2"></i> All Categories</h5>
                             </div>
                         </div>
                     </div>
@@ -44,9 +44,7 @@
                                 <tr>
                                     <th scope="col" class="sort" data-sort="name">Image</th>
                                     <th scope="col" class="sort" data-sort="name">Name</th>
-                                    <th scope="col" class="sort" data-sort="budget">Slug</th>
                                     <th scope="col" class="sort" data-sort="status">Description</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -54,30 +52,16 @@
                                     @foreach ($categories as $category)
                                         <tr>
                                             <td>
-                                                <img class="m-1" src="{{ $category->image }}" height="150px" />
+                                                <a href="{{ route('categories.show', $category) }}">
+                                                    <img class="m-1" src="{{ $category->image }}" height="45px" />
+                                                </a>
                                             </td>
                                             <td>
                                                 {{ $category->name }}
                                             </td>
                                             <td>
-                                                {{ $category->slug }}
-                                            </td>
-                                            <td>
-                                                {!! substr($category->description, 0, 60) !!}
-                                            </td>
-                                            <td class="">
-                                                <div class="dropdown">
-                                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item"
-                                                            href="{{-- route('payslips.show', $payslip) --}}">View</a>
-                                                        <a class="dropdown-item"
-                                                            href="{{-- route('payslips.edit', $payslip) --}}">Edit</a>
-                                                    </div>
-                                                </div>
+                                                {!! strlen($category->description) > 70 ? substr($category->description, 0,
+                                                100) . '...' : $category->description !!}
                                             </td>
                                         </tr>
                                     @endforeach
