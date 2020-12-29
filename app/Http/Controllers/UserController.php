@@ -139,7 +139,7 @@ class UserController extends Controller
     }
 
     /**
-     * Change user employed status to 0.
+     * Show the payslips belonging to the specific user.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

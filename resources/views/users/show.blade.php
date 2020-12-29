@@ -67,8 +67,8 @@
         <div class="row">
             <div class="col-xl-4 order-xl-2">
                 <div class="card card-profile">
-                    <img src="{{ asset('app-assets/img/brand/' . $user->title . '.png') }}" alt="Image placeholder"
-                        class="card-img-top">
+                    <img src="{!!  asset('app-assets/img/brand/' . strtolower($user->title) . '.png') !!}"
+                        alt="Image placeholder" class="card-img-top">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
@@ -84,14 +84,14 @@
                                 <div class="card-profile-stats d-flex justify-content-center">
                                     <div>
                                         <span class="heading">{{ $user->title }}</span>
-                                        <span class="description">Title</span>
+                                        <span class="description">Job Title</span>
                                     </div>
                                     <div>
                                         <span class="heading">{{ $user->level }}</span>
                                         <span class="description">Level</span>
                                     </div>
                                     <div>
-                                        <span class="heading">{{ $user->salary }}</span>
+                                        <span class="heading">{!! number_format($user->salary / 100) !!}</span>
                                         <span class="description">Salary</span>
                                     </div>
                                 </div>

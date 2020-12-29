@@ -73,7 +73,7 @@
                                                 : "<span class='text-danger'>Terminated</span>" !!}
                                             </td>
                                             <td class="budget">
-                                                MVR {{ $user->salary }}
+                                                MVR {!! number_format($user->salary/100, 2) !!}
                                             </td>
                                         </tr>
                                     @endforeach

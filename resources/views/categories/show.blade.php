@@ -81,6 +81,6 @@
             </div>
         </div>
     </div>
-    @include('categories.edit-modal')
-    @include('categories.delete-modal')
+    @include('categories.edit-category')
+    @include('categories.delete-category')
 @endsection

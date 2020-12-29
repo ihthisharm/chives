@@ -32,8 +32,8 @@
         <div class="row">
             <div class="col-xl-4 order-xl-2">
                 <div class="card card-profile">
-                    <img src="{{ asset('app-assets/img/brand/' . $user->title . '.png') }}" alt="Image placeholder"
-                        class="card-img-top">
+                    <img src="{!!  asset('app-assets/img/brand/' . strtolower($user->title) . '.png') !!}"
+                        alt="Image placeholder" class="card-img-top">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
@@ -115,9 +115,9 @@
                                                 <td><a href="{{ route('payslips.show', $payslip) }}"><i
                                                             class="fa fa-eye mr-1"></i></a>{{ $payslip->paid_on }}</td>
                                                 <td>{{ $payslip->type }}</td>
-                                                <td>MVR {{ $payslip->amount }}</td>
-                                                <td>MVR {{ $payslip->service_charge }}</td>
-                                                <td>MVR {{ $payslip->total }}</td>
+                                                <td>MVR {!! number_format($payslip->amount / 100, 2) !!}</td>
+                                                <td>MVR {!! number_format($payslip->service_charge / 100, 2) !!}</td>
+                                                <td>MVR {!! number_format($payslip->total / 100, 2) !!}</td>
                                             </tr>
                                         @endforeach
                                     @else

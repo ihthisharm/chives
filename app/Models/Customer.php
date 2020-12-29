@@ -9,8 +9,17 @@ class Customer extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'contact', 'account', 'credit'
+    ];
+
     public function order()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'contact';
     }
 }

@@ -71,13 +71,13 @@
                                                 {{ $payslip->type }}
                                             </td>
                                             <td class="budget">
-                                                MVR {{ $payslip->amount }}
+                                                MVR {!! number_format($payslip->amount / 100, 2) !!}
                                             </td>
                                             <td class="budget">
-                                                MVR {{ $payslip->service_charge }}
+                                                MVR {!! number_format($payslip->service_charge / 100, 2) !!}
                                             </td>
                                             <td class="budget">
-                                                MVR {{ $payslip->total }}
+                                                MVR {!! number_format($payslip->total / 100, 2) !!}
                                             </td>
                                             <td class="text-right">
                                                 <div class="dropdown">

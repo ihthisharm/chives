@@ -137,15 +137,15 @@
                                 <tbody class="list">
                                     <tr>
                                         <th>Amount due</th>
-                                        <td>MVR {{ $payslip->amount }}</td>
+                                        <td>MVR {!! number_format($payslip->amount / 100, 2) !!}</td>
                                     </tr>
                                     <tr>
                                         <th>Service Charge</th>
-                                        <td>MVR {{ $payslip->service_charge }}</td>
+                                        <td>MVR {!! number_format($payslip->service_charge / 100, 2) !!}</td>
                                     </tr>
                                     <tr>
                                         <th>Total Payable</th>
-                                        <td>MVR {{ $payslip->total }}</td>
+                                        <td>MVR {!! number_format($payslip->total / 100, 2) !!}</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -14,7 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::orderBy('name')->paginate();
+        return view('customers.index')->with('customers', $customers);
     }
 
     /**
@@ -35,7 +36,14 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Customer::create([
+            'name' => $request->name,
+            'contact' => $request->contact,
+            'credit' => $request->credit,
+            'account' => $request->account
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -69,7 +77,13 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $customer->name = $request->name;
+        $customer->contact = $request->contact;
+        $customer->credit = $request->credit;
+        $customer->account = $request->account;
+        $customer->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -80,6 +94,20 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return redirect()->back();
+    }
+
+    /**
+     * Change user employed status to 0.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function clear(Customer $customer)
+    {
+        $customer->credit = 0;
+        $customer->save();
+        return redirect()->back();
     }
 }
