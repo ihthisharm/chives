@@ -11,15 +11,15 @@
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Categories</li>
+                                <li class="breadcrumb-item active" aria-current="page">Items</li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="#" data-target="#create-category" data-toggle="modal" class="btn btn-sm btn-neutral"><i
+                        <a href="#" data-target="#create-item" data-toggle="modal" class="btn btn-sm btn-neutral"><i
                                 class="fa fa-plus"></i>Add</a>
                     </div>
-                    @include('categories.create-category')
+                    @include('items.create-item')
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
             </div>
@@ -33,7 +33,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <h6 class="text-light text-uppercase ls-1 mb-1">Restaurant Management</h6>
-                                <h5 class="h3 text-primary mb-0"><i class="ni ni-archive-2"></i> All Categories</h5>
+                                <h5 class="h3 text-primary mb-0"><i class="ni ni-basket"></i> All Items</h5>
                             </div>
                         </div>
                     </div>
@@ -42,31 +42,38 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col" class="sort" data-sort="name">Category</th>
+                                    <th scope="col" class="sort" data-sort="name">Name</th>
+                                    <th scope="col" class="sort" data-sort="status">Price</th>
+                                    <th scope="col" class="sort" data-sort="status">Category</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @if (count($categories))
-                                    @foreach ($categories as $category)
+                                @if (count($items))
+                                    @foreach ($items as $item)
                                         <tr>
                                             <th scope="row">
                                                 <div class="media align-items-center">
-                                                    <a href="{{ route('categories.show', $category->slug) }}"
+                                                    <a href="{{ route('items.show', $item->slug) }}"
                                                         class="bg-default mr-3">
-                                                        <img alt="{{ $category->name }}" src="{{ $category->image }}"
-                                                            width="90">
+                                                        <img alt="{{ $item->name }}" src="{{ $item->image }}" width="90">
                                                     </a>
                                                     <div class="media-body">
                                                         <span class="name mb-0 text-sm"><a
-                                                                href="{{ route('categories.show', $category) }}">{{ $category->name }}</a></span>
+                                                                href="{{ route('items.show', $item) }}">{{ $item->name }}</a></span>
                                                         <span class="d-block text-muted text-wrap">
-                                                            {!! strlen($category->description) > 70 ?
-                                                            substr($category->description, 0, 150) . '...' :
-                                                            $category->description !!}
+                                                            {!! strlen($item->description) > 40 ? substr($item->description,
+                                                            0, 100) . '...' : $item->description !!}
                                                         </span>
                                                     </div>
                                                 </div>
                                             </th>
+                                            <td>
+                                                MVR {!! number_format($item->price / 100, 2) !!}
+                                            </td>
+                                            <td>
+                                                <a
+                                                    href="{{ route('categories.show', $item->category->slug) }}">{{ $item->category->name }}</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @else
@@ -74,6 +81,9 @@
                                 @endif
                             </tbody>
                         </table>
+                    </div>
+                    <div class="p-3 d-flex justify-content-end">
+                        {{ $items->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>

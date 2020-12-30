@@ -24,7 +24,8 @@
                         <a href="#" data-target="#delete-category" data-toggle="modal"
                             class="text-danger btn btn-sm btn-neutral"><i class="fa fa-trash"></i> Delete</a>
                     </div>
-                    @include('categories.create-modal')
+                    @include('categories.edit-category')
+                    @include('categories.delete-category')
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
             </div>
@@ -66,14 +67,40 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col" class="sort" data-sort="name">Item</th>
-                                    <th scope="col" class="sort" data-sort="status">Description</th>
                                     <th scope="col" class="sort" data-sort="name">Price</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                <tr colspan="3">
-                                    <td>No items in {{ $category->name }} category</td>
-                                </tr>
+                                @if (count($items))
+                                    @foreach ($items as $item)
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="media align-items-center">
+                                                    <a href="{{ route('items.show', $item->slug) }}"
+                                                        class="bg-default mr-3">
+                                                        <img alt="{{ $item->name }}" src="{{ $item->image }}" width="50">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <span class="name mb-0 text-sm"><a
+                                                                href="{{ route('items.show', $item) }}">{{ $item->name }}</a></span>
+                                                        <span class="d-block text-muted">
+                                                            {!! strlen($item->description) > 40 ? substr($item->description,
+                                                            0, 40) . '...' : $item->description !!}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                MVR {!! number_format($item->price / 100, 2) !!}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr colspan="3">
+                                        <td>No items in {{ $category->name }} category</td>
+                                    </tr>
+                                @endif
+
                             </tbody>
                         </table>
                     </div>

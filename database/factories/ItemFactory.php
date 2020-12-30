@@ -24,14 +24,14 @@ class ItemFactory extends Factory
     {
         $name = $this->faker->unique()->words(3, true);
         $slug = Str::slug($name, '-');
-        
+
         return [
             'name' => $name,
             'slug' => $slug,
             'description' => $this->faker->paragraph,
-            'image' => 'https://www.robohash.org/'.$slug,
-            'price' => $this->faker->randomNumber(3),
-            'category_id' => 1        
+            'image' => 'https://robohash.org/' . $slug . '.png?bgset=bg1',
+            'price' => $this->faker->randomNumber(5),
+            'category_id' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

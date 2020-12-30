@@ -10,16 +10,16 @@
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Customers</li>
+                                <li class="breadcrumb-item active" aria-current="page">Tables</li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="#" data-toggle="modal" data-target="#create-customer" class="btn btn-sm btn-neutral"><i
+                        <a href="#" data-toggle="modal" data-target="#create-table" class="btn btn-sm btn-neutral"><i
                                 class="fa fa-plus"></i>
                             Add</a>
                     </div>
-                    @include('customers.create-customer')
+                    @include('tables.create-table')
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
             </div>
@@ -33,7 +33,7 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <h6 class="text-light text-uppercase ls-1 mb-1">Restaurant Mnagement</h6>
-                                <h5 class="h3 text-primary mb-0"><i class="ni ni-satisfied"></i> Registered Customers</h5>
+                                <h5 class="h3 text-primary mb-0"><i class="ni ni-support-16"></i> Tables List</h5>
                             </div>
                         </div>
                     </div>
@@ -42,20 +42,17 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col" class="sort">Customer</th>
-                                    <th scope="col" class="sort">Contact</th>
-                                    <th scope="col" class="sort">Credit</th>
+                                    <th scope="col" class="sort">Table Number</th>
+                                    <th scope="col" class="sort">Status</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @if (count($customers))
-                                    @foreach ($customers as $customer)
+                                @if (count($tables))
+                                    @foreach ($tables as $table)
                                         <tr>
-                                            <td>{{ $customer->name }} <span
-                                                    class="text-muted d-block">{{ $customer->account }}</span></td>
-                                            <td>{{ $customer->contact }}</td>
-                                            <td>MVR {!! number_format($customer->credit / 100, 2) !!}</td>
+                                            <td>{{ $table->number }}</td>
+                                            <td>{{ $table->status }}</td>
                                             <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
@@ -63,31 +60,24 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item" href="">View</a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#edit-customer-{{ $customer->id }}">Edit</a>
+                                                            data-target="#edit-table-{{ $table->id }}">Edit</a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#clear-customer-{{ $customer->id }}">Clear</a>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#delete-customer-{{ $customer->id }}">Delete</a>
+                                                            data-target="#delete-table-{{ $table->id }}">Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
-                                        @include('customers.edit-customer')
-                                        @include('customers.clear-customer')
-                                        @include('customers.delete-customer')
+                                        @include('tables.edit-table')
+                                        @include('tables.delete-table')
                                     @endforeach
                                 @else
                                     <tr colspan="7">
-                                        <td>No Customers Registered</td>  
+                                        <td><a href="{{ route('tables.create') }}"></a></td>
                                     </tr>
                                 @endif
                             </tbody>
                         </table>
-                    </div>
-                    <div class="p-3 d-flex justify-content-end">
-                        {{ $customers->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>

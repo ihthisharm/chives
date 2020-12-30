@@ -82,7 +82,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('categories.show')->with('category', $category);
+        $items = Category::find(1)->items;
+        return view('categories.show')->with(['category' => $category, 'items' => $items]);
     }
 
     /**
@@ -133,7 +134,7 @@ class CategoryController extends Controller
         }
 
         $category->save();
-        return redirect()->back();
+        return redirect('/categories/' . $slug);
     }
 
     /**

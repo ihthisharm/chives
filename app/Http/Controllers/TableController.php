@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Table;
+use Facade\Ignition\Tabs\Tab;
 use Illuminate\Http\Request;
 
 class TableController extends Controller
 {
+    /**
+     * Create a new instance with auth as middleware
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        //
+        $tables = Table::all();
+        return view('tables.index')->with('tables', $tables);
     }
 
     /**
@@ -35,7 +45,12 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Table::create([
+            'number' => $request->number,
+            'status' => 'empty'
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -69,7 +84,11 @@ class TableController extends Controller
      */
     public function update(Request $request, Table $table)
     {
-        //
+        $table->number = $request->number;
+        $table->status = $request->status;
+        $table->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -80,6 +99,8 @@ class TableController extends Controller
      */
     public function destroy(Table $table)
     {
-        //
+        $table->delete();
+
+        return redirect()->back();
     }
 }

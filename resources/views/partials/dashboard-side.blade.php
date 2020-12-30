@@ -1,6 +1,15 @@
 <!-- Sidenav -->
 <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
+        <div class="d-xs-block d-md-none ">
+            <div class="d-flex justify-content-end pt-3 mr-3 sidenav-toggler sidenav-toggler-dark"
+                data-action="sidenav-pin" data-target="#sidenav-main">
+                <div class="sidenav-toggler-inner text-success">
+                    <i class="fa fa-arrow-left"></i>
+                </div>
+            </div>
+        </div>
+
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
             <a class="navbar-brand" href="javascript:void(0)">

@@ -22,12 +22,12 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->unique()->word;
+        $name = $this->faker->unique()->words(2, true);
         $slug = Str::slug($name, '-');
         return [
             'name' => $name,
             'slug' => $slug,
-            'image' => 'https://robohash.org/' .$slug.'.png?bgset=bg1',
+            'image' => 'https://robohash.org/' . $slug . '.png?bgset=bg1',
             'description' => $this->faker->paragraph
         ];
     }
