@@ -26,7 +26,7 @@ class ItemController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $items = Item::orderBy('name')->with(['category:id,name,slug'])->paginate();
+        $items = Item::orderBy('name')->paginate();
         return view('items.index')->with(['items' => $items, 'categories' => $categories]);
     }
 
@@ -77,7 +77,7 @@ class ItemController extends Controller
             'category_id' => $request->category_id
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', $request->name . ' added to the database');
     }
 
     /**
@@ -142,7 +142,7 @@ class ItemController extends Controller
         }
 
         $item->save();
-        return redirect('/items/' . $slug);
+        return redirect('/items/' . $slug)->with('success', $request->name . ' updated successfully.');
     }
 
     /**
@@ -154,6 +154,6 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $item->delete();
-        return redirect('/items');
+        return redirect('/items')->with('success', $item->name . ' deleted successfully.');
     }
 }

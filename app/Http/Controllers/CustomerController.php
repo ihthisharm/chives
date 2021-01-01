@@ -51,7 +51,7 @@ class CustomerController extends Controller
             'account' => $request->account
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', $request->name . ' registered as a credit customer.');
     }
 
     /**
@@ -91,7 +91,7 @@ class CustomerController extends Controller
         $customer->account = $request->account;
         $customer->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Information of ' . $request->name . ' has been updated.');
     }
 
     /**
@@ -103,7 +103,7 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', $customer->name . ' has been removed from databse.');
     }
 
     /**
@@ -116,6 +116,6 @@ class CustomerController extends Controller
     {
         $customer->credit = 0;
         $customer->save();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Credit of ' . $customer->name . ' has been set to MVR 0.00.');
     }
 }

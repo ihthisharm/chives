@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-lg-6 col-5 text-right">
                         <a href="#" data-target="#create-category" data-toggle="modal" class="btn btn-sm btn-neutral"><i
-                                class="fa fa-plus"></i>Add</a>
+                                class="fa fa-plus"></i> Add</a>
                     </div>
                     @include('categories.create-category')
                 </div>
@@ -70,7 +70,9 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr colspan="4">No Categories to display</tr>
+                                    <tr colspan="4">
+                                        <td>No Categories to display</td>
+                                    </tr>
                                 @endif
                             </tbody>
                         </table>

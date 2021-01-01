@@ -64,7 +64,7 @@ class UserController extends Controller
             'image' => $image,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Staff record for ' . $request->name . ' created successfully!');
     }
 
     /**
@@ -107,7 +107,7 @@ class UserController extends Controller
         $user->salary = $request->salary;
         $user->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Staff record for ' . $request->name . ' updated successfully!');
     }
 
     /**
@@ -131,11 +131,13 @@ class UserController extends Controller
     {
         if (!$user->employed) {
             $user->employed = 1;
+            $message = $user->name . ' has been re-employed.';
         } else {
             $user->employed = 0;
+            $message = $user->name . ' has been fired.';
         }
         $user->save();
-        return redirect()->back();
+        return redirect()->back()->with('success', $message);
     }
 
     /**

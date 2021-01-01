@@ -12,7 +12,8 @@
             </div>
             <div class="modal-body">
                 <span class="text-muted">
-                    Are you sure you wish yo delete {{ $category->name }} category?
+                    You are about to delete {{ $category->name }} category? All items in {{ $category->name }} category
+                    will also be deleted. Are you sure you wish to continue?
                 </span>
             </div>
             <div class="modal-footer">

@@ -51,17 +51,20 @@ class PayslipController extends Controller
         } else {
             $paid_on = date('Y-m-d');
         }
+
+        $total = $request->amount + $request->service_charge;
+
         Payslip::create([
             'user_id' => $request->user_id,
             'type' => $request->type,
             'amount' => $request->amount,
             'service_charge' => $request->service_charge,
-            'total' => $request->amount + $request->service_charge,
+            'total' => $total,
             'paid_on' => $paid_on,
             'remarks' => $request->remarks
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Payslip with total of MVR ' . $total . ' ceated');
     }
 
     /**
@@ -109,7 +112,7 @@ class PayslipController extends Controller
         $payslip->remarks = $request->remarks;
         $payslip->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Payslip updated successfully.');
     }
 
     /**
@@ -121,6 +124,6 @@ class PayslipController extends Controller
     public function destroy(Payslip $payslip)
     {
         $payslip->delete();
-        return redirect('/payslips');
+        return redirect('/payslips')->with('success', 'Payslip deleted successfully.');
     }
 }

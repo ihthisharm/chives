@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-lg-6 col-5 text-right">
                         <a href="#" data-target="#create-item" data-toggle="modal" class="btn btn-sm btn-neutral"><i
-                                class="fa fa-plus"></i>Add</a>
+                                class="fa fa-plus"></i> Add</a>
                     </div>
                     @include('items.create-item')
                 </div>
@@ -71,8 +71,9 @@
                                                 MVR {!! number_format($item->price / 100, 2) !!}
                                             </td>
                                             <td>
-                                                <a
-                                                    href="{{ route('categories.show', $item->category->slug) }}">{{ $item->category->name }}</a>
+                                                <a href=" {{ '/categories/' . $item->category->slug }}">
+                                                    {{ ucwords($item->category->name) }}
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

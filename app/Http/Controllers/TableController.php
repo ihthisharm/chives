@@ -45,12 +45,17 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
+        //validate
+        $this->validate($request, [
+            'number' => 'required'
+        ]);
+
         Table::create([
             'number' => $request->number,
             'status' => 'empty'
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Table number ' . $request->number . ' created successfully!');
     }
 
     /**
@@ -88,7 +93,7 @@ class TableController extends Controller
         $table->status = $request->status;
         $table->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Table ' . $request->number . ' updated successfully!');
     }
 
     /**
@@ -101,6 +106,6 @@ class TableController extends Controller
     {
         $table->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Table number ' . $table->number . ' Deleted Successfully');;
     }
 }

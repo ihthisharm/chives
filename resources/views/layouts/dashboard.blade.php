@@ -45,7 +45,9 @@
         <!-- Header -->
 
         <!-- Page content -->
-
+        <div class="messenger">
+            @include('partials.messenger')
+        </div>
         @yield('content')
 
 

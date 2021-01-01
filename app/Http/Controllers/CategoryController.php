@@ -71,7 +71,7 @@ class CategoryController extends Controller
             'image' => '/storage/img/categories/' . $fileNameToStore
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', $request->name . ' category created successfully.');
     }
 
     /**
@@ -82,7 +82,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $items = Category::find(1)->items;
+        $items = Category::find($category->id)->items;
         return view('categories.show')->with(['category' => $category, 'items' => $items]);
     }
 
@@ -134,7 +134,7 @@ class CategoryController extends Controller
         }
 
         $category->save();
-        return redirect('/categories/' . $slug);
+        return redirect('/categories/' . $slug)->with('success', $request->name . ' category updated successfully.');
     }
 
     /**
@@ -145,7 +145,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $items = Category::find($category->id)->items;
+
+        foreach ($items as $item) {
+            $item->delete();
+        }
+
         $category->delete();
-        return redirect('/categories');
+        return redirect('/categories')->with('success', $category->name . ' category deleted successfully.');
     }
 }
