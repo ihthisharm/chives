@@ -22,10 +22,10 @@ class AttendanceFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->numberBetween(1, 5),
+            'user_id' => $this->faker->unique()->numberBetween(1, 5),
             'present' => $this->faker->boolean(),
-            'date'    => $this->faker->date(),
-            'remarks' => $this->faker->paragraph()
+            'date'    => date('Y-m-d'),
+            'remarks' => $this->faker->unique->word()
         ];
     }
 }

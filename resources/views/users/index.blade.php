@@ -40,7 +40,6 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col" class="sort" data-sort="name">Name</th>
-                                    <th scope="col" class="sort" data-sort="name">Job Title</th>
                                     <th scope="col" class="sort" data-sort="budget">Contact</th>
                                     <th scope="col" class="sort" data-sort="status">Employed Since</th>
                                     <th scope="col" class="sort" data-sort="status">Salary</th>
@@ -51,19 +50,21 @@
                                     @foreach ($users as $user)
                                         <tr>
                                             <th scope="row">
-                                                <div class="media align-items-center">
-                                                    <a href="{{ route('users.show', $user->id_card) }}"
-                                                        class="avatar rounded-circle bg-default mr-3">
-                                                        <img alt="{{ $user->name }}" src="{{ $user->image }}">
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <span class="name mb-0 text-sm">{{ $user->name }}</span>
+                                                <a href="{{ route('users.show', $user->id_card) }}">
+                                                    <div class="media align-items-center">
+                                                        <div class="avatar rounded-circle bg-default mr-3">
+                                                            <img alt="{{ $user->name }}" src="{{ $user->image }}">
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <span class="name mb-0 text-sm d-block">{{ $user->name }}</span>
+                                                            <small class="text-muted">
+                                                                {{ $user->title }}
+                                                                {{ $user->level ? 'Level ' . $user->level : '' }}
+                                                            </small>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </th>
-                                            <td>
-                                                {{ $user->title }} {{ $user->level ? 'Level ' . $user->level : '' }}
-                                            </td>
                                             <td>
                                                 {{ $user->phone }}
                                             </td>

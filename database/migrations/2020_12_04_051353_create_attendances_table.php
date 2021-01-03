@@ -18,7 +18,7 @@ class CreateAttendancesTable extends Migration
             $table->integer('user_id');
             $table->boolean('present');
             $table->date('date');
-            $table->text('remarks')->nullable();
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

@@ -24,3 +24,12 @@
     right: 20px;
     z-index: 999;
 }
+
+.day:hover {
+    background-color: #E8F2FC;
+    cursor: pointer;
+}
+
+.day a {
+  text-decoration: none;
+}
