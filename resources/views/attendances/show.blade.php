@@ -10,17 +10,23 @@
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Attendance</li>
+                                <li class="breadcrumb-item"><a href="/attendances">Attendance</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ date('d F Y', strtotime($attendance->date)) }}
+                                </li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="#" data-target="#create-attendance" data-toggle="modal" class="btn btn-sm btn-neutral">
-                            <i class="fa fa-plus"></i>
-                            Add
+                        <a href="{{ url()->previous() }}" class="btn btn-sm btn-neutral">
+                            <i class="fa fa-arrow-left"></i> Back
+                        </a>
+                        <a href="#" data-target="#delete-attendance" data-toggle="modal"
+                            class="btn btn-sm btn-neutral text-danger">
+                            <i class="fa fa-trash"></i> Delete
                         </a>
                     </div>
-                    @include('attendances.create-attendance')
+                    @include('attendances.delete-attendance')
                 </div>
                 {{-- @include('partials.dashboard-stats') --}}
             </div>
@@ -39,7 +45,7 @@
                                 <h6 class="text-light text-uppercase ls-1 mb-1">Human Resource Management</h6>
                                 <h5 class="h3 text-primary mb-0">
                                     <i class="ni ni-money-coins"></i>
-                                    Attendance
+                                    Attendance of {{ date('d F Y', strtotime($attendance->date)) }}
                                 </h5>
                             </div>
                         </div>
@@ -49,25 +55,27 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col" class="sort" data-sort="name">Name</th>
-                                    <th scope="col" class="sort" data-sort="name">Today</th>
-                                    <th scope="col" class="sort" data-sort="budget">Attendance</th>
+                                    <th scope="col" class="sort" data-sort="name">Attendance Status</th>
+                                    <th scope="col" class="sort" data-sort="name">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @if (count($users))
-                                    @foreach ($users as $user)
+                                @if ($attendances)
+                                    @foreach ($attendances as $attendance)
                                         <tr>
                                             <th scope="row">
-                                                <a href="{{ route('users.show', $user->id_card) }}">
+                                                <a href="{{ route('users.show', $attendance->user->id_card) }}">
                                                     <div class="media align-items-center">
                                                         <div class="avatar rounded-circle bg-default mr-3">
-                                                            <img alt="{{ $user->name }}" src="{{ $user->image }}">
+                                                            <img alt="{{ $attendance->user->name }}"
+                                                                src="{{ $attendance->user->image }}">
                                                         </div>
                                                         <div class="media-body">
-                                                            <span class="name mb-0 text-sm d-block">{{ $user->name }}</span>
+                                                            <span
+                                                                class="name mb-0 text-sm d-block">{{ $attendance->user->name }}</span>
                                                             <small class="text-muted">
-                                                                {{ $user->title }}
-                                                                {{ $user->level ? 'Level ' . $user->level : '' }}
+                                                                {{ $attendance->user->title }}
+                                                                {{ $attendance->user->level ? 'Level ' . $attendance->user->level : '' }}
                                                             </small>
                                                         </div>
                                                     </div>
@@ -75,30 +83,29 @@
                                             </th>
                                             <td>
                                                 <span class="badge badge-dot mr-4">
-                                                    <i class="{{ $user->LED }}"></i>
-                                                    <span class="status">{{ $user->status }}</span>
+                                                    <i class="{{ $attendance->LED }}"></i>
+                                                    <span class="status">{{ $attendance->status }}</span>
                                                 </span>
                                             </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="completion mr-2">{{ $user->percentage }}%</span>
-                                                    <div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-primary" role="progressbar"
-                                                                aria-valuenow="{{ $user->percentage }}" aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                                style="width: {{ $user->percentage }}%;"></div>
-                                                        </div>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                                            data-target="#edit-attendance-{{ $attendance->id }}">Edit</a>
                                                     </div>
                                                 </div>
-                                                <small class="text-muted">
-                                                    MVR {{ number_format($user->payable / 100, 2) }}
-                                                </small>
                                             </td>
                                         </tr>
+                                        @include('attendances.edit-attendance')
                                     @endforeach
                                 @else
-
+                                    <tr colspan="3">
+                                        <td></td>
+                                    </tr>
                                 @endif
                             </tbody>
                         </table>
