@@ -58,9 +58,9 @@
                                 <label for="">Payment Type</label>
                                 <select name="type" id="" class="custom-select">
                                     <option value="Salary">Salary</option>
-                                    <option value="Salary">Bonus</option>
-                                    <option value="Salary">Compensation</option>
-                                    <option value="Salary">Other</option>
+                                    <option value="Bonus">Bonus</option>
+                                    <option value="Compensation">Compensation</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                             <div class="form-group">

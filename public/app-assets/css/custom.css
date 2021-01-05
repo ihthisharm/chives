@@ -33,3 +33,7 @@
 .day a {
   color: inherit;
 }
+
+.disabled {
+  user-select: none;
+}

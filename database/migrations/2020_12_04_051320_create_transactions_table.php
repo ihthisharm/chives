@@ -15,13 +15,13 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->integer('user_id');
+            $table->string('reference_number');
+            $table->integer('income');
+            $table->integer('expense');
             $table->string('title');
             $table->text('remarks')->nullable();
-            $table->string('reference_number');
-            $table->boolean('income');
-            $table->integer('amount');
-            $table->integer('balance');
-            $table->integer('user_id');
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@
     } 
     $weeks=array_chunk($weeks, 7, true) 
 ?> 
-<div class="card">
+<div class="card disabled">
     <div class="card-header bg-primary d-flex justify-content-between align-items-center pt-3 pb-0">
         <h5 class="card-title text-white"><?php echo date('F'); ?></h5>
         <h5 class="card-title text-white"><?php echo date('Y'); ?></h5>
@@ -31,7 +31,7 @@
             @foreach ($weeks as $week => $days)
                 <div class="d-flex justify-content-between px-2">
                     @foreach ($days as $key => $day)
-                        @if( $day <= date('d', strtotime(date('Y-m-d'))))
+                        @if( $day <= date('d', strtotime(date('Y-m-d'))) && $day !== '')
                             @if (in_array($key, $holidays) && $day == date('d', strtotime($today)))
                                 <a class='day text-white bg-danger mt-3 px-1'
                                     href="{{ route('attendances.show', date('Y-m-' . $day)) }}">
