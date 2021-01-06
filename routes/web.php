@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -35,7 +36,7 @@ Route::resource('/customers', CustomerController::class);
 Route::resource('/items', ItemController::class);
 Route::resource('/payslips', PayslipController::class);
 Route::resource('/tables', TableController::class);
-Route::resource('/transactions',TransactionController::class);
+Route::resource('/transactions', TransactionController::class);
 Route::resource('/users', UserController::class);
 
 Route::put('/users/{user}/fire', [UserController::class, 'fire'])->name('fire');

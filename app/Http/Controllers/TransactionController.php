@@ -82,7 +82,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        return view('transactions.show')->with('transaction', $transaction);
     }
 
     /**
@@ -105,7 +105,22 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        if ($request->type) {
+            $income = $request->amount;
+            $expense = 0;
+        } else {
+            $expense = $request->amount;
+            $income = 0;
+        }
+
+        $transaction->date = $request->date;
+        $transaction->income = $income;
+        $transaction->expense = $expense;
+        $transaction->title = $request->title;
+        $transaction->remarks = $request->remarks;
+
+        $transaction->save();
+        return redirect()->back()->with('success', 'Transaction updated successfully');
     }
 
     /**
@@ -116,6 +131,7 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+        return redirect('/transactions')->with('success', 'Transaction deleted successfully');
     }
 }

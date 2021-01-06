@@ -6,7 +6,7 @@ use App\Models\Payslip;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class PayslipController extends Controller
 {
@@ -55,7 +55,7 @@ class PayslipController extends Controller
         }
 
         $total = $request->amount + $request->service_charge;
-        
+
         Payslip::create([
             'user_id' => $request->user_id,
             'type' => $request->type,
@@ -65,7 +65,7 @@ class PayslipController extends Controller
             'paid_on' => $paid_on,
             'remarks' => $request->remarks
         ]);
-            
+
         Transaction::create([
             'date' => $request->paid_on,
             'user_id' => Auth::user()->id,
@@ -73,7 +73,7 @@ class PayslipController extends Controller
             'income' => 0,
             'expense' => $total,
             'title' => $request->type,
-            'remarks' => $request->remarks.' '.$request->paid_on,
+            'remarks' => $request->remarks . ' ' . $request->paid_on,
         ]);
 
         return redirect()->back()->with('success', 'Payslip & Transaction Record with total of MVR ' . $total . ' ceated');

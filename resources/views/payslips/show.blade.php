@@ -20,7 +20,6 @@
                             Back</a>
                     </div>
                 </div>
-                {{-- @include('partials.dashboard-stats') --}}
             </div>
         </div>
     </div>

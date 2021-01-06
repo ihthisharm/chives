@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Income</h5>
-                                <span class="h2 font-weight-bold mb-0">
+                                <span class="h3 font-weight-bold mb-0">
                                     MVR {{ number_format($this_month->sum('income') / 100, 2) }}
                                 </span>
                             </div>
@@ -43,12 +43,10 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-sm">
-                            <span class="
-                                            {{ $this_month->sum('income') > $last_month->sum('income') ? 'text-success' : 'text-danger' }}
-                                            mr-2">
-                                <i class="fa 
-                                                {{ $this_month->sum('income') > $last_month->sum('income') ? 'fa-arrow-up' : 'fa-arrow-down' }}
-                                                "></i>
+                            <span
+                                class="{{ $this_month->sum('income') > $last_month->sum('income') ? 'text-success' : 'text-danger' }} mr-2">
+                                <i
+                                    class="fa {{ $this_month->sum('income') > $last_month->sum('income') ? 'fa-arrow-up' : 'fa-arrow-down' }}"></i>
                                 @if ($last_month->sum('income') == 0)
                                     100%
                                 @elseif ($this_month->sum('income') > $last_month->sum('income'))
@@ -57,7 +55,7 @@
                                         {{ number_format((($this_month->sum('income') - $last_month->sum('income')) / $last_month->sum('income')) * 100, 2) }}%
                                 @endif
                             </span>
-                            <small class="text-muted text-nowrap">Since last month</small>
+                            <span class="text-muted text-nowrap">Since last month</span>
                         </p>
                     </div>
                 </div>
@@ -67,7 +65,7 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Expenses</h5>
-                                <span class="h2 font-weight-bold mb-0">
+                                <span class="h3 font-weight-bold mb-0">
                                     MVR {{ number_format($this_month->sum('expense') / 100, 2) }}
                                 </span>
                             </div>
@@ -78,12 +76,10 @@
                             </div>
                         </div>
                         <p class="mt-3 mb-0 text-sm">
-                            <span class="
-                                            {{ $this_month->sum('expense') > $last_month->sum('expense') ? 'text-danger' : 'text-success' }}
-                                            mr-2">
-                                <i class="fa 
-                                                {{ $this_month->sum('expense') > $last_month->sum('expense') ? 'fa-arrow-up' : 'fa-arrow-down' }}
-                                                "></i>
+                            <span
+                                class="{{ $this_month->sum('expense') > $last_month->sum('expense') ? 'text-danger' : 'text-success' }} mr-2">
+                                <i
+                                    class="fa {{ $this_month->sum('expense') > $last_month->sum('expense') ? 'fa-arrow-up' : 'fa-arrow-down' }} "></i>
                                 @if ($last_month->sum('expense') == 0)
                                     100%
                                 @elseif ($this_month->sum('expense') > $last_month->sum('expense'))
@@ -92,7 +88,7 @@
                                         {{ number_format((($this_month->sum('expense') - $last_month->sum('expense')) / $last_month->sum('expense')) * 100, 2) }}%
                                 @endif
                             </span>
-                            <small class="text-muted text-nowrap">Since last month</small>
+                            <span class="text-muted text-nowrap">Since last month</span>
                         </p>
                     </div>
                 </div>
@@ -102,12 +98,10 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Monthly Revenue</h5>
-                                <span class="h3 font-weight-bold mb-0 
-                                                {{ $this_month->sum('income') > $this_month->sum('expense') ? 'text-success' : 'text-danger' }}
-                                                ">
-                                    <i class="fa 
-                                                {{ $this_month->sum('income') > $this_month->sum('expense') ? 'fa-arrow-up' : 'fa-arrow-down' }}
-                                                "></i>
+                                <span
+                                    class="h3 font-weight-bold mb-0 {{ $this_month->sum('income') > $this_month->sum('expense') ? 'text-success' : 'text-danger' }}">
+                                    <i
+                                        class="fa {{ $this_month->sum('income') > $this_month->sum('expense') ? 'fa-arrow-up' : 'fa-arrow-down' }} "></i>
                                     MVR
                                     {{ number_format(($this_month->sum('income') - $this_month->sum('expense')) / 100, 2) }}
                                 </span>
@@ -126,12 +120,10 @@
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Account Balance</h5>
-                                <span class="h3 font-weight-bold mb-0 
-                                                {{ $transactions->sum('income') > $transactions->sum('expense') ? 'text-success' : 'text-danger' }}
-                                                ">
-                                    <i class="fa 
-                                                {{ $transactions->sum('income') > $transactions->sum('expense') ? 'fa-arrow-up' : 'fa-arrow-down' }}
-                                                "></i>
+                                <span
+                                    class="h3 font-weight-bold mb-0 {{ $transactions->sum('income') > $transactions->sum('expense') ? 'text-success' : 'text-danger' }} ">
+                                    <i
+                                        class="fa {{ $transactions->sum('income') > $transactions->sum('expense') ? 'fa-arrow-up' : 'fa-arrow-down' }} "></i>
                                     MVR
                                     {{ number_format(($transactions->sum('income') - $transactions->sum('expense')) / 100, 2) }}
                                 </span>
@@ -164,6 +156,7 @@
                                     <th scope="col" class="sort" data-sort="status">Title</th>
                                     <th scope="col" class="sort" data-sort="status">Income</th>
                                     <th scope="col" class="sort" data-sort="status">Expense</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -174,7 +167,8 @@
                                                 {{ date('d-m-Y', strtotime($transaction->date)) }}
                                             </td>
                                             <td>
-                                                <span>{{ $transaction->title }}</span>
+                                                <span><a
+                                                        href="{{ route('transactions.show', $transaction) }}">{{ $transaction->title }}</a></span>
                                                 <small
                                                     class="text-muted text-wrap d-block">{{ $transaction->remarks }}</small>
                                             </td>
@@ -189,7 +183,7 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr colspan="7">No Payslips to display</tr>
+                                    <tr colspan="7">No Transactions to display</tr>
                                 @endif
                             </tbody>
                         </table>
